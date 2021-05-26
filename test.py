@@ -1,4 +1,4 @@
 
-saldo = [int(input()), str(input())]
+lista = [input()]
 
-print(saldo)
+print(lista)
