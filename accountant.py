@@ -30,9 +30,7 @@ while True:
         stan_konta += zmiana
         konto["saldo"] =+ stan_konta
         dane.append([akcja, zmiana, comment])
-        print(akcja)
-        print("środki: {}, komentarz: {}".format(zmiana, comment))
-        # continue
+
     elif akcja == "zakup":
         id_produkt = str(input())
         cena = int(input())
@@ -44,15 +42,13 @@ while True:
             magazyn.append(id_produkt)
             magazyn.append(ilosc_magazyn)
             dane.append([akcja, id_produkt, cena, sztuk])
-            print(akcja)
-            print("produkt: {}, cena za szt.: {}, kupiono sztuk: {}".format(id_produkt, cena, sztuk))
         elif cena < 0 or sztuk <= 0:
             print("Podano nieprawidłowe wartości.")
             break
         else:
             print("Niewystarczające środki na koncie.")
             break
-        # continue
+
     elif akcja == "sprzedaz":
         id_produkt = str(input())
         cena = int(input())
@@ -63,17 +59,21 @@ while True:
             stan_konta =+ cena * sztuk
             konto["saldo"] += stan_konta
             dane.append([akcja, id_produkt, cena, sztuk])
-        print(akcja)
-        print("produkt: {}, cena za szt.: {}, sprzedano sztuk: {}".format(id_produkt, cena, sztuk))
-        # continue
-    elif akcja == "przeglad":
+
+    elif sys.argv[1] == "przeglad":
         for wpis in dane:
             for element in wpis:
                 print(element)
         break
-    elif sys.argv[1] == "saldoo":
+
+    elif sys.argv[1] == "saldo":
         print(konto["saldo"])
         break
+
+    elif sys.argv[1] == "konto":
+        print(konto["saldo"])
+        break
+
     elif akcja == "stop":
         print("Koniec programu.")
         break
