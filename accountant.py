@@ -71,9 +71,14 @@ while True:
             for element in wpis:
                 print(element)
         break
+    elif sys.argv[1] == "saldoo":
+        print(konto["saldo"])
+        break
     elif akcja == "stop":
         print("Koniec programu.")
         break
+
+
     #
     # elif akcja == "magazyn":
     #     for id_produkt in sys.argv[2:]:
