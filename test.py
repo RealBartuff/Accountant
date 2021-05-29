@@ -1,18 +1,12 @@
-#TODO:
-# "Program zapamiętuje każdą wprowadzoną linię",
-# "Program wraca do kroku I",
-# a) b) c) program dodaje do historii podane argumenty tak jakby miały być wprowadzone przez standardowe wejście, przechodzi do kroku V
-# d) program wypisuje na standardowe wyjście stan konta po wszystkich akcjach, kończy działanie
-# e) program wypisuje stany magazynowe dla podanych produktów, w formacie: <id produktu>: <stan> w nowych liniach i kończy działanie:
-# f) Program wypisuje wszystkie akcje zapisane pod indeksami w zakresie [od, do] (zakresy włącznie)
-# V. Program wypisuje wszystkie podane parametry w formie identycznej w jakiej je pobrał
 
-import sys
+# import sys
 
 stan_konta = 0
 zmiana = 0
 konto = {"saldo": stan_konta}
 id_produkt = str()
+cena = 0
+sztuk = 0
 ilosc_magazyn = 0
 magazyn = []
 dane = []
@@ -30,25 +24,25 @@ while True:
         stan_konta += zmiana
         konto["saldo"] =+ stan_konta
         dane.append([akcja, zmiana, comment])
-        # continue
+        print(konto)
+
     elif akcja == "zakup":
         id_produkt = str(input())
         cena = int(input())
         sztuk = int(input())
-        if (cena * sztuk) < stan_konta:
+        if cena < 0 or sztuk <= 0:
+            print("Podano nieprawidłowe wartości.")
+            break
+        elif (cena * sztuk) < stan_konta:
             stan_konta =- cena * sztuk
             ilosc_magazyn += sztuk
             konto["saldo"] += stan_konta
             magazyn.append(id_produkt)
             magazyn.append(ilosc_magazyn)
             dane.append([akcja, id_produkt, cena, sztuk])
-        elif cena < 0 or sztuk <= 0:
-            print("Podano nieprawidłowe wartości.")
-            break
-        else:
-            print("Niewystarczające środki na koncie.")
-            break
-        # continue
+        print(konto["saldo"])
+        print(dane)
+
     elif akcja == "sprzedaz":
         id_produkt = str(input())
         cena = int(input())
@@ -59,19 +53,43 @@ while True:
             stan_konta =+ cena * sztuk
             konto["saldo"] += stan_konta
             dane.append([akcja, id_produkt, cena, sztuk])
-        # continue
-    elif akcja == "przeglad":
-        for wpis in dane:
-            for element in wpis:
-                print(element)
-        break
-    elif sys.argv[1] == "saldo":
-        print(konto["saldo"])
-        break
+        print(konto)
+        
+# while True:
+#     if sys.argv[1] == "saldo":
+#         print(konto["saldo"])
+#         pass
+#
+#     elif sys.argv[1] == "zakup":
+#         dane.append([sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]])
+#         for wpis in dane:
+#             for element in wpis:
+#                 print(element)
+#         print("stop")
+#
+#     elif sys.argv[1] == "sprzedaz":
+#         dane.append([sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]])
+#         for wpis in dane:
+#             for element in wpis:
+#                 print(element)
+#         print("stop")
+#
+#     elif sys.argv[1] == "konto":
+#         print(konto["saldo"])
+#         break
+#
+#     elif sys.argv[1] == "przeglad":
+#         for wpis in dane:
+#             for element in wpis:
+#                 print(element)
+#         break
+#
     elif akcja == "stop":
+        # for wpis in dane:
+        #     for element in wpis:
+        #                 print(element)
         print("Koniec programu.")
         break
-
 
     #
     # elif akcja == "magazyn":
