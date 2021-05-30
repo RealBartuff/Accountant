@@ -30,7 +30,7 @@ while True:
             konto["saldo"] += stan_konta
             magazyn.append([id_produkt, sztuk])
             dane.append([akcja, id_produkt, cena, sztuk])
-        elif cena < 0 or sztuk <= 0:
+        if cena < 0 or sztuk <= 0:
             print("Podano nieprawidłowe wartości.")
             break
 
@@ -43,6 +43,12 @@ while True:
             stan_konta =+ cena * sztuk
             konto["saldo"] += stan_konta
             dane.append([akcja, id_produkt, cena, sztuk])
+            for lista in dane:                                          # wyświetlanie pliku in.txt
+                for element in lista:
+                    print(element)
+            print(sys.argv[2])                                          # dodawanie sysów do pliku txt
+            print(sys.argv[3])
+            print(sys.argv[4])
 
     elif sys.argv[1] == "saldo":
         print(konto["saldo"])
@@ -51,28 +57,24 @@ while True:
     elif sys.argv[1] == "konto":
         print(konto["saldo"])
         break
-    #
-    # elif sys.argv[1] == "przeglad":
-    #     for wpis in dane:
-    #         for element in wpis:
-    #             print(element)
-    #     break
+
+    elif sys.argv[1] == "przeglad":
+        for lista in dane:
+            for item in lista:
+                print(item)
+        print("stop")
+        break
+
+    elif sys.argv[1] == "magazyn":
+        for id_produkt in sys.argv[2:]:
+            if id_produkt in magazyn:
+                stan_magazynu = magazyn[sztuk]
+            else:
+                stan_magazynu = 0
+            print(id_produkt, ":", stan_magazynu)
+        break
 
     elif akcja == "stop":
         print("stop")
         break
 
-    #
-    # elif akcja == "magazyn":
-    #     for id_produkt in sys.argv[2:]:
-    #         if id_produkt in magazyn:
-    #             stan_magazyn = magazyn[id_produkt]
-    #         else:
-    #             stan_magazyn = 0
-    #         print("{}: ", "{}".format(id_produkt, stan_magazyn))
-    #         break
-    #
-
-    # else:
-        # print("ERROR! Podano nieprawidłowe wartości.")
-        # break
