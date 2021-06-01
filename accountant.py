@@ -92,7 +92,6 @@ if sys.argv[1] == "zakup":
     print("stop")
 
 if sys.argv[1] == "magazyn":
-    produkt = sys.argv[2:]
     for produkt, ilosc in magazyn.items():
         if produkt in magazyn:
             print("{}: {}".format(produkt, ilosc))
