@@ -50,33 +50,6 @@ while True:
         else:
             magazyn[id_produkt] = sztuk
 
-
-    elif sys.argv[1] == "saldo":
-        print(konto["saldo"])
-        break
-
-    elif sys.argv[1] == "konto":
-        print(konto["saldo"])
-        break
-
-    elif sys.argv[1] == "przeglad":
-        start = 0
-        if len(sys.argv) > 2:
-            start = sys.argv[2]
-        for lista in dane[start:2]:
-            for item in lista:
-                print(item)
-        print("stop")
-        break
-
-    elif sys.argv[1] == "magazyn":
-        for id_produkt in sys.argv[2:]:
-            if id_produkt in magazyn:
-                stan_magazynu = magazyn[sztuk]
-            else:
-                stan_magazynu = 0
-            print(id_produkt, ":", stan_magazynu)
-        break
     elif akcja == "stop":
         # print("stop")
         break
@@ -98,3 +71,33 @@ if sys.argv[1] == "sprzedaz":
             print(item)
     print("stop")
     print(dane)
+
+if sys.argv[1] == "magazyn":
+    for id_produkt in sys.argv[2:]:
+        if id_produkt in magazyn:
+            stan_magazynu = magazyn[sztuk]
+        else:
+            stan_magazynu = 0
+        print(id_produkt, ":", stan_magazynu)
+        break
+
+
+if sys.argv[1] == "saldo":
+    print(konto["saldo"])
+    # break
+
+if sys.argv[1] == "konto":
+    print(konto["saldo"])
+    # break
+
+if sys.argv[1] == "przeglad":
+    start = 0
+    koniec = 0
+    if len(sys.argv) > 2:
+        start = sys.argv[2]
+        koniec = sys.argv[3]
+    for lista in dane[int(start):int(koniec)]:
+        for item in lista:
+            print(item)
+    print("stop")
+    # break
