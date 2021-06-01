@@ -41,14 +41,15 @@ while True:
         id_produkt = str(input())
         cena = int(input())
         sztuk = int(input())
-
         if id_produkt in magazyn:
+            magazyn[id_produkt] -= sztuk
             stan_konta = + cena * sztuk
             konto["saldo"] += stan_konta
             dane.append(["sprzedaz", id_produkt, cena, sztuk])
-            magazyn[id_produkt] -= sztuk
-        else:
-            magazyn[id_produkt] = sztuk
+        elif id_produkt not in magazyn:
+            print("Brak produktu w magazynie")
+            break
+
 
     elif akcja == "stop":
         # print("stop")
@@ -70,25 +71,39 @@ if sys.argv[1] == "sprzedaz":
         for item in lista:
             print(item)
     print("stop")
-    print(dane)
+
+if sys.argv[1] == "zakup":
+    id_produkt = sys.argv[2]
+    cena = int(sys.argv[3])
+    sztuk = int(sys.argv[4])
+    if (cena * sztuk) < konto["saldo"]:
+        stan_konta = - cena * sztuk
+        konto["saldo"] += stan_konta
+        if id_produkt in magazyn:
+            magazyn[id_produkt] += sztuk
+        else:
+            magazyn[id_produkt] = sztuk
+        dane.append(["zakup", id_produkt, cena, sztuk])
+    if cena < 0 or sztuk <= 0:
+        print("Podano nieprawidłowe wartości.")
+    for lista in dane:
+        for item in lista:
+            print(item)
+    print("stop")
 
 if sys.argv[1] == "magazyn":
-    for id_produkt in sys.argv[2:]:
-        if id_produkt in magazyn:
-            stan_magazynu = magazyn[sztuk]
-        else:
-            stan_magazynu = 0
-        print(id_produkt, ":", stan_magazynu)
-        break
-
+    produkt = sys.argv[2:]
+    for produkt, ilosc in magazyn.items():
+        if produkt in magazyn:
+            print("{}: {}".format(produkt, ilosc))
+        if produkt not in magazyn:
+            print(produkt, ":", 0)
 
 if sys.argv[1] == "saldo":
     print(konto["saldo"])
-    # break
 
 if sys.argv[1] == "konto":
     print(konto["saldo"])
-    # break
 
 if sys.argv[1] == "przeglad":
     start = 0
@@ -100,4 +115,3 @@ if sys.argv[1] == "przeglad":
         for item in lista:
             print(item)
     print("stop")
-    # break
