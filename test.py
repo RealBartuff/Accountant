@@ -1,12 +1,12 @@
 
 import sys
-
+"""
 stan_konta = 0
 zmiana = 0
 konto = {"saldo": stan_konta}
-magazyn = []
+magazyn = {}
 dane = []
-
+sztuk = 0
 
 
 while True:
@@ -28,8 +28,13 @@ while True:
         if (cena * sztuk) < konto["saldo"]:
             stan_konta =- cena * sztuk
             konto["saldo"] += stan_konta
-            magazyn.append([id_produkt, sztuk])
+            # magazyn.append([id_produkt, sztuk])
+            if id_produkt in magazyn:
+                magazyn[id_produkt] += sztuk
+            else:
+                magazyn[id_produkt] = sztuk
             dane.append([akcja, id_produkt, cena, sztuk])
+            print(magazyn)
         if cena < 0 or sztuk <= 0:
             print("Podano nieprawidłowe wartości.")
             break
@@ -43,12 +48,13 @@ while True:
             stan_konta =+ cena * sztuk
             konto["saldo"] += stan_konta
             dane.append([akcja, id_produkt, cena, sztuk])
+            print(magazyn)
             for lista in dane:                                          # wyświetlanie pliku in.txt
                 for element in lista:
                     print(element)
-            print(sys.argv[2])                                          # dodawanie sysów do pliku txt
-            print(sys.argv[3])
-            print(sys.argv[4])
+            # print(sys.argv[2])                                          # dodawanie sysów do pliku txt
+            # print(sys.argv[3])
+            # print(sys.argv[4])
 
     elif sys.argv[1] == "saldo":
         print(konto["saldo"])
@@ -71,10 +77,18 @@ while True:
                 stan_magazynu = magazyn[sztuk]
             else:
                 stan_magazynu = 0
+            print(magazyn)
             print(id_produkt, ":", stan_magazynu)
         break
 
     elif akcja == "stop":
         print("stop")
         break
-
+"""
+if sys.argv[1] == "magazyn":
+    item = str(sys.argv)
+    for produkt, ilosc in magazyn.items():
+        if produkt in magazyn:
+            print("{}: {}".format(item, ilosc))
+        if produkt not in magazyn:
+            print(item, ":", 0)

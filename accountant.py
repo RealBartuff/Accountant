@@ -66,7 +66,7 @@ if sys.argv[1] == "sprzedaz":
         dane.append([sys.argv[1], id_produkt, cena, sztuk])
         magazyn[id_produkt] -= sztuk
     else:
-        magazyn[id_produkt] = sztuk
+        print("Brak towaru w magazynie!")
     for lista in dane:
         for item in lista:
             print(item)
@@ -92,11 +92,13 @@ if sys.argv[1] == "zakup":
     print("stop")
 
 if sys.argv[1] == "magazyn":
-    for produkt, ilosc in magazyn.items():
-        if produkt in magazyn:
+    id_produkt = str(sys.argv[4])
+    sztuk = 0
+    if id_produkt not in magazyn:
+        magazyn[id_produkt] = sztuk
+    if id_produkt in magazyn:
+        for produkt, ilosc in magazyn.items():
             print("{}: {}".format(produkt, ilosc))
-        if produkt not in magazyn:
-            print(produkt, ":", 0)
 
 if sys.argv[1] == "saldo":
     print(konto["saldo"])

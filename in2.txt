@@ -12,6 +12,12 @@ sprzedaz
 raspberry
 25000
 5
+zakup
+jetson
+40000
+5
+sprzedaz
 jetson
 50000
 4
+stop
