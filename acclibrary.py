@@ -1,11 +1,12 @@
 
 class Saldo:
     def __init__(self, kwota, komentarz):
+        self.type = "saldo"
         self.kwota = kwota
         self.komentarz = komentarz
 
     def write(self):
-        print(self.kwota)
+        print("{} \n{} \n{}".format(self.type, self.kwota, self.komentarz))
 
 
 class Zakup:
