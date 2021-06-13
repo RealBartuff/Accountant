@@ -1,13 +1,19 @@
 
 import sys
 
+from acclibrary import Saldo, Zakup, Sprzedaz
+
+konto = {"Stan konta": 0}
+magazyn = []
+
+
+
+"""
 stan_konta = 0
 zmiana = 0
 konto = {"saldo": stan_konta}
 magazyn = {}
 dane = []
-
-
 
 while True:
     akcja = input().strip()
@@ -50,9 +56,7 @@ while True:
             print("Brak produktu w magazynie")
             break
 
-
     elif akcja == "stop":
-        # print("stop")
         break
 
 
@@ -92,13 +96,13 @@ if sys.argv[1] == "zakup":
     print("stop")
 
 if sys.argv[1] == "magazyn":
-    id_produkt = str(sys.argv[4])
+    id_produkt = str(sys.argv[2:])
     sztuk = 0
     if id_produkt not in magazyn:
         magazyn[id_produkt] = sztuk
-    if id_produkt in magazyn:
-        for produkt, ilosc in magazyn.items():
-            print("{}: {}".format(produkt, ilosc))
+        if id_produkt in magazyn:
+            for produkt, ilosc in magazyn.items():
+                print("{}: {}".format(produkt, ilosc))
 
 if sys.argv[1] == "saldo":
     print(konto["saldo"])
@@ -115,4 +119,4 @@ if sys.argv[1] == "przeglad":
     for lista in dane[int(start):int(koniec)]:
         for item in lista:
             print(item)
-    print("stop")
+    print("stop")"""
