@@ -2,7 +2,7 @@
 class Saldo:
     def __init__(self, kwota, komentarz):
         self.type = "saldo"
-        self.kwota = kwota
+        self.kwota = int(kwota)
         self.komentarz = komentarz
 
     def write(self):

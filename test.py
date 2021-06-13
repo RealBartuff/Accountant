@@ -3,11 +3,11 @@ import sys
 
 from acclibrary import Saldo, Zakup, Sprzedaz
 
-# current = open("out.txt", "a")
+current_data = open("out.txt", "a")
 with open("in.txt") as data:
 
     konto = {}
-    magazyn = []
+    magazyn = {}
 
     while True:
         akcja = data.readline().rstrip()
@@ -18,5 +18,21 @@ with open("in.txt") as data:
             operacja = data.readline().rstrip()
             comment = data.readline().rstrip()
             konto[akcja] = Saldo(operacja, comment)
-            for dane, jaja in konto.items():
-                jaja.write()
+            for sl, item in konto.items():
+                item.write()
+
+        elif akcja == "zakup":
+            produkt = data.readline().rstrip()
+            cena = data.readline().rstrip()
+            ilosc = data.readline().rstrip()
+            magazyn[akcja] = Zakup(produkt, cena, ilosc)
+            for k, v in magazyn.items():
+                v.write()
+
+        elif akcja == "sprzedaz":
+            produkt = data.readline().rstrip()
+            cena = data.readline().rstrip()
+            ilosc = data.readline().rstrip()
+            magazyn[akcja] = Sprzedaz(produkt, cena, ilosc)
+            for k, v in magazyn.items():
+                v.write()
