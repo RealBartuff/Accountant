@@ -1,5 +1,5 @@
 
-class Zakup:
+"""class Zakup:
     def __init__(self, produkt, kwota, ilosc):
         self.type = "zakup"
         self.produkt = produkt
@@ -18,7 +18,7 @@ class Sprzedaz:
         self.ilosc = int(ilosc)
 
     def write(self):
-        print("{} \n{} \n{} \n{}".format(self.type, self.produkt, self.kwota, self.ilosc))
+        print("{} \n{} \n{} \n{}".format(self.type, self.produkt, self.kwota, self.ilosc))"""
 
 
 def save_saldo(akcja, operacja, comment):
