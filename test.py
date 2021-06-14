@@ -1,11 +1,11 @@
 
 import sys
 
-from acclibrary import Saldo, Zakup, Sprzedaz, save_saldo, save_zakup, save_sprzedaz, stop
+from acclibrary import Zakup, Sprzedaz, save_saldo, save_zakup, save_sprzedaz
 
 with open("in.txt") as data:
 
-    konto = {}
+    konto = {"saldo": 0}
     magazyn = {}
 
     while True:
@@ -14,20 +14,19 @@ with open("in.txt") as data:
             break
 
         elif akcja == "saldo":
-            operacja = data.readline().rstrip()
+            operacja = int(data.readline().rstrip())
             comment = data.readline().rstrip()
-            konto[akcja] = Saldo(operacja, comment)
-            for sl, item in konto.items():
-                item.write()
+            if konto["saldo"] + operacja < 0:
+                print("Niewystarczające środki na koncie.")
+                break
+            konto["saldo"] += operacja
             save_saldo(akcja, operacja, comment)
 
         elif akcja == "zakup":
             produkt = data.readline().rstrip()
-            cena = data.readline().rstrip()
-            ilosc = data.readline().rstrip()
+            cena = int(data.readline().rstrip())
+            ilosc = int(data.readline().rstrip())
             magazyn[akcja] = Zakup(produkt, cena, ilosc)
-            for k, v in magazyn.items():
-                v.write()
             save_zakup(akcja, produkt, cena, ilosc)
 
         elif akcja == "sprzedaz":
@@ -35,10 +34,10 @@ with open("in.txt") as data:
             cena = data.readline().rstrip()
             ilosc = data.readline().rstrip()
             magazyn[akcja] = Sprzedaz(produkt, cena, ilosc)
-            for k, v in magazyn.items():
-                v.write()
             save_sprzedaz(akcja, produkt, cena, ilosc)
 
         elif akcja == "stop":
-            stop(akcja)
             break
+
+print(konto)
+# wrapper(sys.argv[1], konto, magazyn)

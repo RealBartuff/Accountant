@@ -1,20 +1,10 @@
 
-class Saldo:
-    def __init__(self, kwota, komentarz):
-        self.type = "saldo"
-        self.kwota = int(kwota)
-        self.komentarz = komentarz
-
-    def write(self):
-        print("{} \n{} \n{}".format(self.type, self.kwota, self.komentarz))
-
-
 class Zakup:
     def __init__(self, produkt, kwota, ilosc):
         self.type = "zakup"
         self.produkt = produkt
-        self.kwota = kwota
-        self.ilosc = ilosc
+        self.kwota = int(kwota)
+        self.ilosc = int(ilosc)
 
     def write(self):
         print("{} \n{} \n{} \n{}".format(self.type, self.produkt, self.kwota, self.ilosc))
@@ -24,8 +14,8 @@ class Sprzedaz:
     def __init__(self, produkt, kwota, ilosc):
         self.type = "sprzedaz"
         self.produkt = produkt
-        self.kwota = kwota
-        self.ilosc = ilosc
+        self.kwota = int(kwota)
+        self.ilosc = int(ilosc)
 
     def write(self):
         print("{} \n{} \n{} \n{}".format(self.type, self.produkt, self.kwota, self.ilosc))
@@ -59,3 +49,5 @@ def stop(akcja):
     print("stop")
     current_data.write(str(akcja) + "\n")
     current_data.close()
+
+# def wrapper(konto, magazyn):
