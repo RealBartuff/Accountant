@@ -46,7 +46,6 @@ def save_sprzedaz(akcja, produkt, cena, ilosc):
 
 def stop(akcja):
     current_data = open("out.txt", "a")
-    print("stop")
     current_data.write(str(akcja) + "\n")
     current_data.close()
 

@@ -1,7 +1,7 @@
 
 import sys
 
-from acclibrary import save_saldo, save_zakup, save_sprzedaz
+from acclibrary import save_saldo, save_zakup, save_sprzedaz, stop
 
 with open("in.txt") as data:
 
@@ -49,6 +49,7 @@ with open("in.txt") as data:
             save_sprzedaz(akcja, produkt, cena, ilosc)
 
         elif akcja == "stop":
+            stop(akcja)
             break
 
 print(konto)
