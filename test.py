@@ -3,7 +3,7 @@ import sys
 
 from acclibrary import Saldo, Zakup, Sprzedaz
 
-current_data = open("out.txt", "a")
+current_data = open("out.txt", "w")
 with open("in.txt") as data:
 
     konto = {}
@@ -20,6 +20,9 @@ with open("in.txt") as data:
             konto[akcja] = Saldo(operacja, comment)
             for sl, item in konto.items():
                 item.write()
+            current_data.write(str(akcja) + "\n")
+            current_data.write(str(operacja)+"\n")
+            current_data.write(str(comment) + "\n")
 
         elif akcja == "zakup":
             produkt = data.readline().rstrip()
@@ -28,6 +31,10 @@ with open("in.txt") as data:
             magazyn[akcja] = Zakup(produkt, cena, ilosc)
             for k, v in magazyn.items():
                 v.write()
+            current_data.write(str(akcja) + "\n")
+            current_data.write(str(produkt)+"\n")
+            current_data.write(str(cena) + "\n")
+            current_data.write(str(ilosc) + "\n")
 
         elif akcja == "sprzedaz":
             produkt = data.readline().rstrip()
@@ -36,3 +43,14 @@ with open("in.txt") as data:
             magazyn[akcja] = Sprzedaz(produkt, cena, ilosc)
             for k, v in magazyn.items():
                 v.write()
+            current_data.write(str(akcja) + "\n")
+            current_data.write(str(produkt)+"\n")
+            current_data.write(str(cena) + "\n")
+            current_data.write(str(ilosc) + "\n")
+
+        elif akcja == "stop":
+            print("stop")
+            current_data.write(str(akcja) + "\n")
+            break
+
+current_data.close()

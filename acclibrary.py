@@ -29,3 +29,6 @@ class Sprzedaz:
 
     def write(self):
         print("{} \n{} \n{} \n{}".format(self.type, self.produkt, self.kwota, self.ilosc))
+
+
+# def writer():
