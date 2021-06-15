@@ -1,13 +1,13 @@
 
 
-from acclibrary import save_saldo, save_zakup, save_sprzedaz, stop, wrapper
+from acclibrary import save_saldo, save_zakup, save_sprzedaz, stop, wrapper, Magazyn
 
+magazyn = Magazyn()
 with open("in.txt") as data:
 
-    konto = {"saldo": 0}
-    magazyn = []
 
     while True:
+        pozycja = data.tell()
         akcja = data.readline().rstrip()
         if not akcja:
             break
@@ -15,11 +15,7 @@ with open("in.txt") as data:
         elif akcja == "saldo":
             operacja = int(data.readline().rstrip())
             comment = data.readline().rstrip()
-            if konto["saldo"] + operacja < 0:
-                print("Niewystarczające środki na koncie.")
-                break
-            konto["saldo"] += operacja
-            save_saldo(akcja, operacja, comment)
+            magazyn.saldo(operacja, comment)
 
         elif akcja == "zakup":
             produkt = str(data.readline().rstrip())
@@ -51,8 +47,11 @@ with open("in.txt") as data:
             save_sprzedaz(akcja, produkt, cena, ilosc)
 
         elif akcja == "stop":
+            data.seek(pozycja)
             stop(akcja)
             break
 
 
 wrapper(konto, magazyn, towar)
+
+

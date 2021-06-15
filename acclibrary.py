@@ -1,26 +1,24 @@
 
-"""class Zakup:
-    def __init__(self, produkt, kwota, ilosc):
-        self.type = "zakup"
-        self.produkt = produkt
-        self.kwota = int(kwota)
-        self.ilosc = int(ilosc)
+class Magazyn:
+    def __init__(self):
+        self.konto = 0
+        self.produkty = {}
+        self.historia = []
 
-    def write(self):
-        print("{} \n{} \n{} \n{}".format(self.type, self.produkt, self.kwota, self.ilosc))
+    def saldo(self, wartosc, comment):
+        if self.konto + wartosc < 0:
+            print("Niewystarczające środki na koncie.")
+            return False
+        self.konto += wartosc
+        self.historia.append(["saldo", wartosc, comment])
+        return True
+
+    def zakup(self, produkt, wartosc, ilosc):
+
+    def wczytaj(self):
 
 
-class Sprzedaz:
-    def __init__(self, produkt, kwota, ilosc):
-        self.type = "sprzedaz"
-        self.produkt = produkt
-        self.kwota = int(kwota)
-        self.ilosc = int(ilosc)
-
-    def write(self):
-        print("{} \n{} \n{} \n{}".format(self.type, self.produkt, self.kwota, self.ilosc))"""
 import sys
-
 
 def save_saldo(akcja, operacja, comment):
     current_data = open("out.txt", "a")
