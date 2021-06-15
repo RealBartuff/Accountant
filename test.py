@@ -1,7 +1,6 @@
 
-import sys
 
-from acclibrary import save_saldo, save_zakup, save_sprzedaz, stop
+from acclibrary import save_saldo, save_zakup, save_sprzedaz, stop, wrapper
 
 with open("in.txt") as data:
 
@@ -43,6 +42,9 @@ with open("in.txt") as data:
             if produkt not in towar:
                 print("Brak towaru w magazynie.")
                 break
+            if towar[produkt] < ilosc:
+                print("Niewystarczająca ilość sztuk.")
+                break
             else:
                 towar[produkt] -= ilosc
             konto["saldo"] += cena * ilosc
@@ -52,6 +54,5 @@ with open("in.txt") as data:
             stop(akcja)
             break
 
-print(konto)
-print(magazyn)
-# wrapper(sys.argv[1], konto, magazyn)
+
+wrapper(konto, magazyn, towar)
