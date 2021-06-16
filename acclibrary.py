@@ -69,22 +69,20 @@ class Magazyn:
                     break
 
     def zapisz(self, akcja, operacja, comment):
-        current_data = open("in.txt", "a")
-        current_data.write(str(akcja) + "\n")
-        current_data.write(str(operacja) + "\n")
-        current_data.write(str(comment) + "\n")
-        current_data.close()
+        with open("in.txt", "r") as dane:
+            contents = dane.readlines()
+            contents.insert(-1, (str(akcja) + "\n"))
+            contents.insert(-1, (str(operacja) + "\n"))
+            contents.insert(-1, (str(comment) + "\n"))
+
+        with open("in.txt", "w") as dane:
+            contents = "".join(contents)
+            dane.write(contents)
 
 
 import sys
 
-"""def save_saldo(akcja, operacja, comment):
-    current_data = open("out.txt", "a")
-    current_data.write(str(akcja) + "\n")
-    current_data.write(str(operacja) + "\n")
-    current_data.write(str(comment) + "\n")
-    current_data.close()
-
+"""
 def save_zakup(akcja, produkt, cena, ilosc):
     current_data = open("out.txt", "a")
     current_data.write(str(akcja) + "\n")
