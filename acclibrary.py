@@ -14,13 +14,34 @@ class Magazyn:
         return True
 
     def zakup(self, produkt, wartosc, ilosc):
+        if self.konto < wartosc * ilosc:
+            print("Niewystarczające środki na koncie.")
+            return False
+        else:
+            self.konto -= wartosc * ilosc
+        self.produkty[produkt] = + ilosc
+        self.historia.append(["zakup", produkt, wartosc, ilosc])
+        return True
 
-    def wczytaj(self):
+    def sprzedaz(self, produkt, wartosc, ilosc):
+        if produkt not in self.produkty:
+            print("Brak towaru w magazynie.")
+            return False
+        if self.produkty[produkt] < ilosc:
+            print("Niewystarczająca ilość sztuk.")
+            return False
+        else:
+            self.produkty[produkt] -= ilosc
+        self.konto += wartosc * ilosc
+        self.historia.append(["sprzedaz", produkt, wartosc, ilosc])
+        return True
+
+    # def wczytaj(self):
 
 
 import sys
 
-def save_saldo(akcja, operacja, comment):
+"""def save_saldo(akcja, operacja, comment):
     current_data = open("out.txt", "a")
     current_data.write(str(akcja) + "\n")
     current_data.write(str(operacja) + "\n")
@@ -43,10 +64,12 @@ def save_sprzedaz(akcja, produkt, cena, ilosc):
     current_data.write(str(ilosc) + "\n")
     current_data.close()
 
+"""
 def stop(akcja):
     current_data = open("out.txt", "a")
     current_data.write(str(akcja) + "\n")
     current_data.close()
+    """
 
 def p_konto(konto):
     for saldo, suma in konto.items():
@@ -106,10 +129,10 @@ def wrapper(konto, magazyn, towar):
         if akcja == "sprzedaz":
             p_sprzedaz(akcja, konto, towar)
             break
+"""
 
 
-
-    """if sys.argv[1] == "sprzedaz":
+"""if sys.argv[1] == "sprzedaz":
         id_produkt = sys.argv[2]
         cena = int(sys.argv[3])
         sztuk = int(sys.argv[4])
