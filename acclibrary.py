@@ -37,9 +37,9 @@ class Magazyn:
         self.historia.append(["sprzedaz", produkt, wartosc, ilosc])
         return True
 
-    def wczytaj(self):
+    def wczytaj(self, typ):
         magazyn = Magazyn()
-        with open(sys.argv[1]) as data:
+        with open(typ) as data:
             while True:
                 akcja = data.readline().rstrip()
                 if not akcja:
@@ -88,8 +88,9 @@ class Magazyn:
             contents = "".join(contents)
             dane.write(contents)
 
-
-"""def stop(akcja):
-    current_data = open("in.txt", "a")
-    current_data.write(str(akcja) + "\n")
-    current_data.close()"""
+    def przeglad(self, start, koniec):
+        magazyn = Magazyn()
+        for lista in magazyn.historia[int(start):int(koniec)]:
+            for item in lista:
+                print(item)
+                print("stop")
