@@ -1,13 +1,10 @@
 import sys
 
-from acclibrary import Magazyn, stop
+from acclibrary import Magazyn
 
 magazyn = Magazyn()
-
 with open(sys.argv[1]) as data:
-
     while True:
-        pozycja = data.tell()
         akcja = data.readline().rstrip()
         if not akcja:
             break
@@ -30,8 +27,8 @@ with open(sys.argv[1]) as data:
             magazyn.sprzedaz(produkt, cena, ilosc)
 
         elif akcja == "stop":
-            data.seek(pozycja)
-            stop(akcja)
             break
 
 print(magazyn.konto)
+print(magazyn.historia)
+print(magazyn.produkty)
