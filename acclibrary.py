@@ -6,10 +6,10 @@ class Magazyn:
         self.historia = []
 
     def saldo(self, wartosc, comment):
-        if self.konto + wartosc < 0:
+        if self.konto + int(wartosc) < 0:
             print("Niewystarczające środki na koncie.")
             return False
-        self.konto += wartosc
+        self.konto += int(wartosc)
         self.historia.append(["saldo", wartosc, comment])
         return True
 
@@ -36,7 +36,44 @@ class Magazyn:
         self.historia.append(["sprzedaz", produkt, wartosc, ilosc])
         return True
 
-    # def wczytaj(self):
+    def wczytaj(self, data):
+        magazyn = Magazyn()
+        with open(sys.argv[1]) as data:
+
+            while True:
+                pozycja = data.tell()
+                akcja = data.readline().rstrip()
+                if not akcja:
+                    break
+
+                elif akcja == "saldo":
+                    operacja = int(data.readline().rstrip())
+                    comment = data.readline().rstrip()
+                    magazyn.saldo(operacja, comment)
+
+                elif akcja == "zakup":
+                    produkt = str(data.readline().rstrip())
+                    cena = int(data.readline().rstrip())
+                    ilosc = int(data.readline().rstrip())
+                    magazyn.zakup(produkt, cena, ilosc)
+
+                elif akcja == "sprzedaz":
+                    produkt = str(data.readline().rstrip())
+                    cena = int(data.readline().rstrip())
+                    ilosc = int(data.readline().rstrip())
+                    magazyn.sprzedaz(produkt, cena, ilosc)
+
+                elif akcja == "stop":
+                    data.seek(pozycja)
+                    stop(akcja)
+                    break
+
+    def zapisz(self, akcja, operacja, comment):
+        current_data = open("in.txt", "a")
+        current_data.write(str(akcja) + "\n")
+        current_data.write(str(operacja) + "\n")
+        current_data.write(str(comment) + "\n")
+        current_data.close()
 
 
 import sys

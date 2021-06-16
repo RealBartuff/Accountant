@@ -3,8 +3,8 @@ import sys
 from acclibrary import Magazyn, stop
 
 magazyn = Magazyn()
-with open(sys.argv[1]) as data:
 
+with open(sys.argv[1]) as data:
 
     while True:
         pozycja = data.tell()
