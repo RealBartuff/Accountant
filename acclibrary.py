@@ -90,7 +90,15 @@ class Magazyn:
 
     def przeglad(self, start, koniec):
         magazyn = Magazyn()
-        for lista in magazyn.historia[int(start):int(koniec)]:
+        for lista in magazyn.historia[int(start): int(koniec)]:
             for item in lista:
                 print(item)
                 print("stop")
+
+    def magazyn(self, produkt):
+        magazyn = Magazyn()
+        for item in produkt:
+            if item not in magazyn.produkty:
+                self.produkty[item] = 0
+        for item in magazyn.produkty:
+            print(item)
