@@ -1,6 +1,4 @@
 
-import sys
-
 class Magazyn:
     def __init__(self):
         self.konto = 0
@@ -38,7 +36,6 @@ class Magazyn:
         return True
 
     def wczytaj(self, typ):
-        magazyn = Magazyn()
         with open(typ) as data:
             while True:
                 akcja = data.readline().rstrip()
@@ -48,19 +45,19 @@ class Magazyn:
                 elif akcja == "saldo":
                     operacja = int(data.readline().rstrip())
                     comment = data.readline().rstrip()
-                    magazyn.saldo(operacja, comment)
+                    self.saldo(operacja, comment)
 
                 elif akcja == "zakup":
                     produkt = str(data.readline().rstrip())
                     cena = int(data.readline().rstrip())
                     ilosc = int(data.readline().rstrip())
-                    magazyn.zakup(produkt, cena, ilosc)
+                    self.zakup(produkt, cena, ilosc)
 
                 elif akcja == "sprzedaz":
                     produkt = str(data.readline().rstrip())
                     cena = int(data.readline().rstrip())
                     ilosc = int(data.readline().rstrip())
-                    magazyn.sprzedaz(produkt, cena, ilosc)
+                    self.sprzedaz(produkt, cena, ilosc)
 
                 elif akcja == "stop":
                     break
@@ -89,16 +86,13 @@ class Magazyn:
             dane.write(contents)
 
     def przeglad(self, start, koniec):
-        magazyn = Magazyn()
-        for lista in magazyn.historia[int(start): int(koniec)]:
+        for lista in self.historia[int(start): int(koniec)]:
             for item in lista:
                 print(item)
-                print("stop")
 
     def magazyn(self, produkt):
-        magazyn = Magazyn()
         for item in produkt:
-            if item not in magazyn.produkty:
+            if item not in self.produkty:
                 self.produkty[item] = 0
-        for item in magazyn.produkty:
-            print(item)
+        for produkt, ilosc in self.produkty.items():
+            print("{}: {}".format(produkt, ilosc))
