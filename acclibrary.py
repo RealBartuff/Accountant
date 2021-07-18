@@ -62,7 +62,7 @@ class Manager:
                 elif action == "stop":
                     break
 
-    def save_saldo(self, action, operation, comment):
+    def save_balance(self, action, operation, comment):
         with open("in.txt", "r") as dane:
             contents = dane.readlines()
             contents.insert(-1, (str(action) + "\n"))
@@ -90,7 +90,7 @@ class Manager:
             for item in lista:
                 print(item)
 
-    def magazyn(self, product):
+    def warehouse(self, product):
         for item in product:
             if item not in self.products:
                 self.products[item] = 0

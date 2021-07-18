@@ -1,10 +1,10 @@
 import sys
 
-from acclibrary import Magazyn
+from acclibrary import Manager
 
-magazyn = Magazyn()
+magazyn = Manager()
 
-magazyn.wczytaj(sys.argv[1])
-magazyn.saldo(sys.argv[2], sys.argv[3])
+magazyn.load(sys.argv[1])
+magazyn.balance(sys.argv[2], sys.argv[3])
 
-magazyn.zapisz_saldo("saldo", sys.argv[2], sys.argv[3])
+magazyn.save_balance("saldo", sys.argv[2], sys.argv[3])

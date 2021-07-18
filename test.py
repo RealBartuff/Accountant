@@ -1,12 +1,15 @@
 
+class Product:
+    def __init__(self, name, qty):
+        self.product = {name: qty}
+
+
 class Manager:
     def __init__(self):
         self.account = 0
         self.products = {}
         self.history = []
 
-
-class Balance(Manager):
     def balance(self, value, comment):
         if self.account + int(value) < 0:
             print("Niewystarczające środki na koncie.")
@@ -15,8 +18,6 @@ class Balance(Manager):
         self.history.append(["saldo", value, comment])
         return True
 
-
-class Purchase(Manager):
     def purchase(self, product, value, quantity):
         if self.account < int(value) * int(quantity):
             print("Niewystarczające środki na koncie.")
@@ -26,77 +27,77 @@ class Purchase(Manager):
         self.history.append(["zakup", product, value, quantity])
         return True
 
-    def sale(self, product, value, quantity):
+    def sale(self, product, value, qty):
         if product not in self.products:
             print("Brak towaru w magazynie.")
             return False
-        if self.products[product] < quantity:
+        if self.products[product] < qty:
             print("Niewystarczająca ilość sztuk.")
             return False
         else:
-            self.products[product] -= quantity
-        self.account += int(value) * int(quantity)
-        self.history.append(["sprzedaz", product, value, quantity])
+            self.products[product] -= qty
+        self.account += int(value) * int(qty)
+        self.history.append(["sprzedaz", product, value, qty])
         return True
 
-    def wczytaj(self, typ):
+    def load(self, typ):
         with open(typ) as data:
             while True:
-                akcja = data.readline().rstrip()
-                if not akcja:
+                action = data.readline().rstrip()
+                if not action:
                     break
 
-                elif akcja == "saldo":
-                    operacja = int(data.readline().rstrip())
+                elif action == "saldo":
+                    operation = int(data.readline().rstrip())
                     comment = data.readline().rstrip()
-                    self.saldo(operacja, comment)
+                    self.balance(operation, comment)
 
-                elif akcja == "zakup":
-                    produkt = str(data.readline().rstrip())
-                    cena = int(data.readline().rstrip())
-                    ilosc = int(data.readline().rstrip())
-                    self.zakup(produkt, cena, ilosc)
+                elif action == "zakup":
+                    product = str(data.readline().rstrip())
+                    price = int(data.readline().rstrip())
+                    qty = int(data.readline().rstrip())
+                    self.purchase(product, price, qty)
 
-                elif akcja == "sprzedaz":
-                    produkt = str(data.readline().rstrip())
-                    cena = int(data.readline().rstrip())
-                    ilosc = int(data.readline().rstrip())
-                    self.sprzedaz(produkt, cena, ilosc)
+                elif action == "sprzedaz":
+                    product = str(data.readline().rstrip())
+                    price = int(data.readline().rstrip())
+                    qty = int(data.readline().rstrip())
+                    self.sale(product, price, qty)
 
-                elif akcja == "stop":
+                elif action == "stop":
                     break
 
-    def zapisz_saldo(self, akcja, operacja, comment):
+    def save_balance(self, action, operation, comment):
         with open("in.txt", "r") as dane:
             contents = dane.readlines()
-            contents.insert(-1, (str(akcja) + "\n"))
-            contents.insert(-1, (str(operacja) + "\n"))
+            contents.insert(-1, (str(action) + "\n"))
+            contents.insert(-1, (str(operation) + "\n"))
             contents.insert(-1, (str(comment) + "\n"))
 
         with open("in.txt", "w") as dane:
             contents = "".join(contents)
             dane.write(contents)
 
-    def zapisz_zs(self, akcja, produkt, cena, ilosc):
+    def save_purchase_sale(self, action, product, price, qty):
         with open("in.txt", "r") as dane:
             contents = dane.readlines()
-            contents.insert(-1, (str(akcja) + "\n"))
-            contents.insert(-1, (str(produkt) + "\n"))
-            contents.insert(-1, (str(cena) + "\n"))
-            contents.insert(-1, (str(ilosc) + "\n"))
+            contents.insert(-1, (str(action) + "\n"))
+            contents.insert(-1, (str(product) + "\n"))
+            contents.insert(-1, (str(price) + "\n"))
+            contents.insert(-1, (str(qty) + "\n"))
 
         with open("in.txt", "w") as dane:
             contents = "".join(contents)
             dane.write(contents)
 
-    def przeglad(self, start, koniec):
-        for lista in self.historia[int(start): int(koniec)]:
+    def review(self, start, end):
+        for lista in self.history[int(start): int(end)]:
             for item in lista:
                 print(item)
 
-    def magazyn(self, produkt):
-        for item in produkt:
-            if item not in self.produkty:
-                self.produkty[item] = 0
-        for produkt, ilosc in self.produkty.items():
-            print("{}: {}".format(produkt, ilosc))
+    def warehouse(self, product):
+        for item in product:
+            if item not in self.products:
+                self.products[item] = 0
+        for product, qty in self.products.items():
+            print("{}: {}".format(product, qty))

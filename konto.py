@@ -1,8 +1,8 @@
 import sys
 
-from acclibrary import Magazyn
+from acclibrary import Manager
 
-magazyn = Magazyn()
-magazyn.wczytaj(sys.argv[1])
+magazyn = Manager()
+magazyn.load(sys.argv[1])
 
-print(magazyn.konto)
+print(magazyn.account)
