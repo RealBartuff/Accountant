@@ -1,38 +1,38 @@
 
-class Magazyn:
+class Manager:
     def __init__(self):
-        self.konto = 0
-        self.produkty = {}
-        self.historia = []
+        self.account = 0
+        self.products = {}
+        self.history = []
 
-    def saldo(self, wartosc, comment):
-        if self.konto + int(wartosc) < 0:
+    def balance(self, value, comment):
+        if self.account + int(value) < 0:
             print("Niewystarczające środki na koncie.")
             return False
-        self.konto += int(wartosc)
-        self.historia.append(["saldo", wartosc, comment])
+        self.account += int(value)
+        self.history.append(["saldo", value, comment])
         return True
 
-    def zakup(self, produkt, wartosc, ilosc):
-        if self.konto < int(wartosc) * int(ilosc):
+    def purchase(self, product, value, quantity):
+        if self.account < int(value) * int(quantity):
             print("Niewystarczające środki na koncie.")
             return False
-        self.konto -= int(wartosc) * int(ilosc)
-        self.produkty[produkt] = + int(ilosc)
-        self.historia.append(["zakup", produkt, wartosc, ilosc])
+        self.account -= int(value) * int(quantity)
+        self.products[product] = + int(value)
+        self.history.append(["zakup", product, value, quantity])
         return True
 
-    def sprzedaz(self, produkt, wartosc, ilosc):
-        if produkt not in self.produkty:
+    def sale(self, product, value, quantity):
+        if product not in self.products:
             print("Brak towaru w magazynie.")
             return False
-        if self.produkty[produkt] < ilosc:
+        if self.products[product] < quantity:
             print("Niewystarczająca ilość sztuk.")
             return False
         else:
-            self.produkty[produkt] -= ilosc
-        self.konto += int(wartosc) * int(ilosc)
-        self.historia.append(["sprzedaz", produkt, wartosc, ilosc])
+            self.products[product] -= quantity
+        self.account += int(value) * int(quantity)
+        self.history.append(["sprzedaz", product, value, quantity])
         return True
 
     def wczytaj(self, typ):
