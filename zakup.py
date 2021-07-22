@@ -1,10 +1,38 @@
 import sys
 
-from acclibrary import Magazyn
+from manager import Reader, Manager, Writer
 
-magazyn = Magazyn()
+reader = Reader("in.txt")
+manager = Manager(reader)
+writer = Writer("in.txt", "out.txt")
 
-magazyn.wczytaj(sys.argv[1])
-magazyn.zakup(sys.argv[2], sys.argv[3], sys.argv[4])
 
-magazyn.zapisz_zs("zakup", sys.argv[2], sys.argv[3], sys.argv[4])
+@manager.action("saldo", 2)
+def saldo(manager, rows):
+    price = float(rows[0])
+    manager.modify_account(price)
+
+
+@manager.action("zakup", 3)
+def zakup(manager, rows):
+    name = rows[0]
+    price = float(rows[1])
+    qty = float(rows[2])
+    manager.modify_account(-price*qty)
+    manager.modify_stock(name, qty)
+
+
+@manager.action("sprzedaz", 3)
+def zakup(manager, rows):
+    name = rows[0]
+    price = float(rows[1])
+    qty = float(rows[2])
+    manager.modify_account(price*qty)
+    manager.modify_stock(name, -qty)
+
+
+manager.process()
+writer.write_line("zakup")
+writer.write_line(sys.argv[1])
+writer.write_line(sys.argv[2])
+writer.write_line(sys.argv[3])
