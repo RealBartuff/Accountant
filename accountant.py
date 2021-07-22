@@ -1,6 +1,6 @@
 from manager import Reader, Manager, NotEnoughDataException
 
-reader = Reader('in.txt')
+reader = Reader("in.txt")
 manager = Manager(reader)
 
 
@@ -19,8 +19,16 @@ def zakup(manager, rows):
     manager.modify_stock(name, qty)
 
 
-try:
-   manager.process()
-except NotEnoughDataException as exc:
-    print(exc)
+@manager.action("sprzedaz", 3)
+def zakup(manager, rows):
+    name = rows[0]
+    price = float(rows[1])
+    qty = float(rows[2])
+    manager.modify_account(price*qty)
+    manager.modify_stock(name, -qty)
 
+
+"""try:
+    manager.process()
+except NotEnoughDataException as exc:
+    print(exc)"""

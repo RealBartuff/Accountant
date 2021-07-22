@@ -36,14 +36,7 @@ class Manager:
             self.stock[item] = 0
         if self.stock[item] + qty < 0:
             raise NotEnoughStockException()
-
-    def buy_stock(self, item, qty):
-        super(Manager.modify_stock(self, item, qty))
         self.stock[item] += qty
-
-    def sell_stock(self, item, qty):
-        super(Manager.modify_stock(self, item, qty))
-        self.stock[item] -= qty
 
     def action(self, name, parameters):
         def action_in(callback):
@@ -61,6 +54,17 @@ class Manager:
             rows = self.reader.get_line(parameters)
             self.add_history([action] + rows)
             callback(self, rows)
+
+    def review(self, start, end):
+        for x in self.history[int(start):int(end)]:
+            for i in x:
+                print(i)
+
+    def check_stock(self, items):
+        for item in items:
+            if item not in self.stock:
+                self.stock[item] = 0.0
+        print(self.stock)
 
 
 class Reader:
