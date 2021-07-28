@@ -34,3 +34,10 @@ def sprzedaz(manager, rows):
 def przeglad(manager, rows):
     for row in manager.review(rows[0], rows[1]):
         print("\n".join(row))
+
+@manager.action("magazyn", 3)
+def magazyn(manager, rows):
+    for item in rows:
+        if item not in manager.stock:
+            manager.stock[item] = 0.0
+    print(manager.stock)
