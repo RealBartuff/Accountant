@@ -1,6 +1,5 @@
 import sys
 
-import accountant
 from accountant import manager
 
 

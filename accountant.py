@@ -5,7 +5,6 @@ from manager import Reader, Manager
 reader = Reader("in.txt")
 manager = Manager(reader)
 
-
 @manager.action("saldo", 2)
 def saldo(manager, rows):
     price = float(rows[0])

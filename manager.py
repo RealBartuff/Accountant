@@ -68,26 +68,16 @@ class Manager:
 class Reader:
     def __init__(self, path):
         self.path_file = path
-        self.file1 = open(path)
+        self.file = open(path)
 
     def get_line(self, count=1):
-        countlist = []
+        count_list = []
         for i in range(count):
-            read_line = self.file1.readline()
+            read_line = self.file.readline()
             if not read_line:
                 raise NotEnoughDataException("za malo danych w pliku")
-            countlist.append(read_line.strip())
-        return countlist
+            count_list.append(read_line.strip())
+        return count_list
 
-
-class Writer(Reader):
-    def __init__(self, path, path2):
-        self.path_file = path
-        self.file1 = open(path)
-        self.file2 = open(path2, "w")
-
-    def write_line(self, actions):
-        content = self.file1.readlines()
-        content.insert(-1, (str(actions) + "\n"))
-        f = "".join(content)
-        self.file2.write(f)
+    """def write_line(self, lines):
+        self.file.writelines(lines)"""
