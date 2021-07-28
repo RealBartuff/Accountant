@@ -43,6 +43,13 @@ class Manager:
             self.actions[name] = (parameters, callback)
         return action_in
 
+    def process_action(self, action, rows):
+        parameters, callback = self.actions[action]
+        if len(rows) != parameters:
+            raise NoActionException
+        if callback(self, rows):
+            self.add_history([action] + rows)
+
     def process(self):
         while True:
             action = self.reader.get_line()[0]
@@ -52,19 +59,10 @@ class Manager:
                 raise NoActionException()
             parameters, callback = self.actions[action]
             rows = self.reader.get_line(parameters)
-            self.add_history([action] + rows)
-            callback(self, rows)
+            self.process_action(action, rows)
 
     def review(self, start, end):
-        for x in self.history[int(start):int(end)]:
-            for i in x:
-                print(i)
-
-    def check_stock(self, items):
-        for item in items:
-            if item not in self.stock:
-                self.stock[item] = 0.0
-        print(self.stock)
+        return self.history[int(start):int(end)]
 
 
 class Reader:

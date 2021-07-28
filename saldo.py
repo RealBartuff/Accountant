@@ -23,7 +23,7 @@ def zakup(manager, rows):
 
 
 @manager.action("sprzedaz", 3)
-def zakup(manager, rows):
+def sprzedaz(manager, rows):
     name = rows[0]
     price = float(rows[1])
     qty = float(rows[2])
@@ -32,6 +32,4 @@ def zakup(manager, rows):
 
 
 manager.process()
-writer.write_line("saldo")
-writer.write_line(sys.argv[1])
-writer.write_line(sys.argv[2])
+manager.process_action("saldo", sys.argv[1:])
