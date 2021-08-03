@@ -64,8 +64,11 @@ class Manager:
     def review(self, start, end):
         return self.history[int(start):int(end)]
 
+    def save(self):
+        self.reader.write_history(self.history)
 
-class Reader:
+
+class FileHandler:
     def __init__(self, path):
         self.path_file = path
         self.file = open(path)
@@ -79,5 +82,10 @@ class Reader:
             count_list.append(read_line.strip())
         return count_list
 
-    """def write_line(self, lines):
-        self.file.writelines(lines)"""
+    def write_history(self, history):
+        self.file.close()
+        with open("in.txt", "w") as f:
+            for row in history:
+                f.write("\n".join(row) + "\n")
+            f.write("stop")
+        self.file = open(self.path_file)

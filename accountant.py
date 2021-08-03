@@ -1,8 +1,8 @@
 import sys
 
-from manager import Reader, Manager
+from manager import FileHandler, Manager
 
-reader = Reader("in.txt")
+reader = FileHandler("in.txt")
 manager = Manager(reader)
 
 @manager.action("saldo", 2)
